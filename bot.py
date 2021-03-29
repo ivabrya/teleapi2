@@ -6,19 +6,23 @@ TOKEN = "1732951299:AAH5y4W1CwYxGS5epURab3c3DZC5eAGhcvc"
 bot = telebot.TeleBot(token=TOKEN)
 server = Flask(__name__)
 
+
 def findat(msg):
     # from a list of texts, it finds the one with the '@' sign
     for i in msg:
         if '@' in i:
             return i
 
+
 @bot.message_handler(commands=['start']) # welcome message handler
 def send_welcome(message):
     bot.reply_to(message, '(placeholder text)')
 
+
 @bot.message_handler(commands=['help']) # help message handler
 def send_welcome(message):
     bot.reply_to(message, 'ALPHA = FEATURES MAY NOT WORK')
+
 
 @bot.message_handler(func=lambda msg: msg.text is not None and '@' in msg.text)
 # lambda function finds messages with the '@' sign in them
@@ -32,6 +36,7 @@ def at_converter(message):
         insta_link = "https://instagram.com/{}".format(at_text[1:])
         bot.reply_to(message, insta_link)
 
+
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():
     json_string = request.get_data().decode('utf-8')
@@ -43,7 +48,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://mighty-falls-22143.herokuapp.com/' + '1732951299:AAH5y4W1CwYxGS5epURab3c3DZC5eAGhcvc')
+    bot.set_webhook(url='https://mighty-plains-39825.herokuapp.com/' + TOKEN)
     return "!", 200
 
 
